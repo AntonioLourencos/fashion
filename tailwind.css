@@ -1,12 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;900&display=swap')
 
 @layer base {
 
   /* Allow changing font family via CMS */
   html {
-    font-family: var(--font-family);
+    /* font-family: var(--font-family); */
+    font-family: 'Albert Sans', sans-serif;
   }
 
   /** Remove default styles from input[type=number] */

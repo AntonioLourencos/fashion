@@ -1,8 +1,5 @@
-import Icon, {
-  AvailableIcons,
-} from "$store/components/ui/Icon.tsx";
-import Newsletter from "$store/islands/Newsletter.tsx";
-import type { ComponentChildren } from "preact";
+import { AvailableIcons } from "$store/components/ui/Icon.tsx";
+import Icon from "$store/components/ui/Icon.tsx";
 
 export type IconItem = { icon: AvailableIcons };
 export type StringItem = {
@@ -17,159 +14,141 @@ export type Section = {
   children: Item[];
 };
 
-const isIcon = (item: Item): item is IconItem =>
-  // deno-lint-ignore no-explicit-any
-  typeof (item as any)?.icon === "string";
-
-function SectionItem({ item }: { item: Item }) {
-  return (
-    <span class="text-primary-content">
-      {isIcon(item)
-        ? (
-          <div class="border-base-100 border border-solid py-1.5 px-2.5">
-            <Icon
-              id={item.icon}
-              width={25}
-              height={20}
-              strokeWidth={0.01}
-            />
-          </div>
-        )
-        : (
-          <a href={item.href}>
-            {item.label}
-          </a>
-        )}
-    </span>
-  );
-}
-
-function FooterContainer(
-  { children, class: _class = "" }: {
-    class?: string;
-    children: ComponentChildren;
-  },
-) {
-  return <div class={`py-6 px-4 sm:py-12 sm:px-0 ${_class}`}>{children}</div>;
-}
-
 export interface Props {
   sections?: Section[];
 }
 
+const Columns = [
+  {
+    name: "Column one",
+    links: ["Link one", "Link two", "Link three", "Link four", "Link five"],
+  },
+  {
+    name: "Column two",
+    links: ["Link one", "Link two", "Link three", "Link four", "Link five"],
+  },
+  {
+    name: "Column three",
+    links: ["Link one", "Link two", "Link three", "Link four", "Link five"],
+  },
+];
+
 function Footer({ sections = [] }: Props) {
   return (
-    <footer class="w-full bg-primary flex flex-col divide-y divide-primary-content">
-      <div>
-        <div class="container w-full flex flex-col divide-y divide-primary-content">
-          <FooterContainer>
-            <Newsletter />
-          </FooterContainer>
+    <footer className="px-16 pt-20 pb-12">
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-col gap-4">
+          <span className="font-normal text-3xl">Subscribe</span>
+          <span>Join our newsletter to stay up to date.</span>
+        </div>
 
-          <FooterContainer>
-            {/* Desktop view */}
-            <ul class="hidden sm:flex flex-row gap-20">
-              {sections.map((section) => (
-                <li>
-                  <div>
-                    <span class="font-medium text-xl text-primary-content">
-                      {section.label}
-                    </span>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-row gap-4">
+            <input
+              placeholder="Enter your email"
+              type="email"
+              className="border border-solid py-2 px-4 w-80"
+              style={{ borderColor: "#AAAAAA" }}
+            />
+            <button
+              className="border border-solid text-base py-2 px-4"
+              style={{ borderColor: "#546F4A", color: "#546F4A" }}
+            >
+              Subscribe
+            </button>
+          </div>
 
-                    <ul
-                      class={`flex ${
-                        isIcon(section.children[0]) ? "flex-row" : "flex-col"
-                      } gap-2 pt-2 flex-wrap`}
-                    >
-                      {section.children.map((item) => (
-                        <li>
-                          <SectionItem item={item} />
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </li>
-              ))}
-            </ul>
-
-            {/* Mobile view */}
-            <ul class="flex flex-col sm:hidden sm:flex-row gap-4">
-              {sections.map((section) => (
-                <li>
-                  <span class="text-primary-content">
-                    <details>
-                      <summary>
-                        {section.label}
-                      </summary>
-
-                      <ul
-                        class={`flex ${
-                          isIcon(section.children[0]) ? "flex-row" : "flex-col"
-                        } gap-2 px-2 pt-2`}
-                      >
-                        {section.children.map((item) => (
-                          <li>
-                            <SectionItem item={item} />
-                          </li>
-                        ))}
-                      </ul>
-                    </details>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </FooterContainer>
+          <span>
+            By subscribing you agree to with our{" "}
+            <a className="underline cursor-pointer">Privacy Policy</a>.
+          </span>
         </div>
       </div>
 
-      <div>
-        <div class="container w-full">
-          <FooterContainer class="flex justify-between w-full">
-            <span class="flex items-center gap-1 text-primary-content">
-              Powered by{" "}
-              <a
-                href="https://www.deco.cx"
-                aria-label="powered by https://www.deco.cx"
-              >
-                <Icon id="Deco" height={20} width={60} strokeWidth={0.01} />
-              </a>
-            </span>
+      <hr className="my-10" />
 
-            <ul class="flex items-center justify-center gap-2">
-              <li>
-                <a
-                  href="https://www.instagram.com/deco.cx"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram logo"
-                >
-                  <Icon
-                    class="text-primary-content"
-                    width={32}
-                    height={32}
-                    id="Instagram"
-                    strokeWidth={1}
-                  />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="http://www.deco.cx/discord"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Discord logo"
-                >
-                  <Icon
-                    class="text-primary-content"
-                    width={32}
-                    height={32}
-                    id="Discord"
-                    strokeWidth={5}
-                  />
-                </a>
-              </li>
-            </ul>
-          </FooterContainer>
+      <div className="flex flex-col gap-2 mb-10">
+        <h1 className="text-xl font-black" style={{ letterSpacing: 7 }}>
+          LOGO
+        </h1>
+        <span>Short description of the company</span>
+      </div>
+
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-row gap-24">
+          {Columns.map((column) => {
+            return (
+              <ul className="flex flex-col gap-4">
+                <span className="text-xl">{column.name}</span>
+
+                {column.links.map((link) => {
+                  return (
+                    <li
+                      className="text-sm font-normal"
+                      style={{ color: "#292929" }}
+                    >
+                      {link}
+                    </li>
+                  );
+                })}
+              </ul>
+            );
+          })}
+        </div>
+
+        <div>
+          <div>
+            <span>Follow us</span>
+            <div>
+              <span>Icon</span>
+            </div>
+          </div>
+
+          <div>
+            <span>Payment Methods</span>
+            <div>
+              <span>Icon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr className="my-10" />
+
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-row items-center gap-2">
+          <span>powered by</span>
+          <Icon size={48} id="Deco" strokeWidth={1} />
+        </div>
+
+        <div className="flex flex-row gap-4">
+          <div
+            className="flex flex-row items-center gap-2 border border-solid py-2 px-4 cursor-pointer"
+            style={{ borderColor: "#AAAAAA" }}
+          >
+            <Icon
+              className="translate-y-1"
+              size={20}
+              id="UnitedStates"
+              strokeWidth={3}
+            />
+            <span>United states - USD</span>
+            <Icon size={20} id="ChevronDown" strokeWidth={3} />
+          </div>
+
+          <div
+            className="flex flex-row items-center gap-2 border border-solid py-2 px-4 cursor-pointer"
+            style={{ borderColor: "#AAAAAA" }}
+          >
+            <Icon
+              className="translate-y-1"
+              size={22}
+              id="WebSite"
+              strokeWidth={3}
+            />
+            <span>EN</span>
+            <Icon size={20} id="ChevronDown" strokeWidth={3} />
+          </div>
         </div>
       </div>
     </footer>
